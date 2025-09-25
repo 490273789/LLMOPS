@@ -1,0 +1,30 @@
+[project]
+name = "llmops-api"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [{ name = "Ethan Wang", email = "ethan.wang1993@outlook.com" }]
+dependencies = [
+    "injector>=0.22.0",
+    "flask>=3.1.2",
+    "python-dotenv>=1.1.1",
+    "openai>=1.108.1",
+    "Flask-WTF>=1.2.2",
+    "pytest>=8.4.2",
+    "flask-sqlalchemy>=3.1.1",
+    "psycopg2>=2.9.10",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = { text = "MIT" }
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+# Run test suite
+test = "pytest -v -s"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+addopts = "-v -s"

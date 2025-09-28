@@ -21,7 +21,6 @@ class AppHandler:
 
     def get_app(self, id: uuid.UUID):
         app = self.app_service.get_app(id)
-        print(app)
         return success_message(f"应用name为{app.name}")
 
     def update_app(self, id: uuid.UUID):

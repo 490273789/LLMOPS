@@ -1,6 +1,7 @@
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from pkg.sqlalchemy import SQLAlchemy
 
 from internal.exception import CustomException
 from internal.model import App
@@ -13,7 +14,15 @@ from pkg.response import json, HttpCode, Response
 class Http(Flask):
     """Http 服务引擎"""
 
-    def __init__(self, *args, conf: Config, db: SQLAlchemy, router: Router, **kwargs):
+    def __init__(
+        self,
+        *args,
+        conf: Config,
+        db: SQLAlchemy,
+        migrate: Migrate,
+        router: Router,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
 
         # 初始化应用配置
@@ -24,11 +33,7 @@ class Http(Flask):
 
         # 初始化Flask扩展
         db.init_app(self)
-
-        # 在应用上下文中创建数据库表
-        with self.app_context():
-            _ = App()
-            db.create_all()
+        migrate.init_app(self, db, directory="internal/migration")
 
         # 注册应用路由
         router.register_router(self)

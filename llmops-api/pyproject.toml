@@ -12,6 +12,7 @@ dependencies = [
     "pytest>=8.4.2",
     "flask-sqlalchemy>=3.1.1",
     "psycopg2>=2.9.10",
+    "flask-migrate>=4.1.0",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
@@ -24,6 +25,8 @@ distribution = false
 [tool.pdm.scripts]
 # Run test suite
 test = "pytest -v -s"
+upgrade = "flask db upgrade"
+downgrade = "flash db downgrade"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]

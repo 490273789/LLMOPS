@@ -1,4 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from pkg.sqlalchemy import SQLAlchemy
 from injector import Injector
 
 import dotenv
@@ -18,7 +19,11 @@ conf = Config()
 injector = Injector([ExtensionModule])
 
 app = Http(
-    __name__, conf=conf, db=injector.get(SQLAlchemy), router=injector.get(Router)
+    __name__,
+    conf=conf,
+    db=injector.get(SQLAlchemy),
+    migrate=injector.get(Migrate),
+    router=injector.get(Router),
 )
 
 

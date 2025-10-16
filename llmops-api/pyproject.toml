@@ -13,6 +13,8 @@ dependencies = [
     "flask-sqlalchemy>=3.1.1",
     "psycopg2>=2.9.10",
     "flask-migrate>=4.1.0",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.30",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"

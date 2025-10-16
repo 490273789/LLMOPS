@@ -4,7 +4,6 @@ from flask_migrate import Migrate
 from pkg.sqlalchemy import SQLAlchemy
 
 from internal.exception import CustomException
-from internal.model import App
 from internal.router import Router
 from config import Config
 from pkg.response import json, HttpCode, Response

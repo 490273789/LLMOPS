@@ -1,35 +1,20 @@
 [project]
 name = "llmops-api"
 version = "0.1.0"
-description = "Default template for PDM package"
-authors = [{ name = "Ethan Wang", email = "ethan.wang1993@outlook.com" }]
-dependencies = [
-    "injector>=0.22.0",
-    "flask>=3.1.2",
-    "python-dotenv>=1.1.1",
-    "openai>=1.108.1",
-    "Flask-WTF>=1.2.2",
-    "pytest>=8.4.2",
-    "flask-sqlalchemy>=3.1.1",
-    "psycopg2>=2.9.10",
-    "flask-migrate>=4.1.0",
-    "langchain>=0.3.27",
-    "langchain-community>=0.3.30",
-]
-requires-python = "==3.11.*"
+description = "Add your description here"
 readme = "README.md"
-license = { text = "MIT" }
-
-
-[tool.pdm]
-distribution = false
-
-[tool.pdm.scripts]
-# Run test suite
-test = "pytest -v -s"
-upgrade = "flask db upgrade"
-downgrade = "flash db downgrade"
-
-[tool.pytest.ini_options]
-testpaths = ["test"]
-addopts = "-v -s"
+requires-python = ">=3.12.12"
+dependencies = [
+    "flask>=3.1.2",
+    "flask-migrate>=4.1.0",
+    "flask-sqlalchemy>=3.1.1",
+    "flask-wtf>=1.2.2",
+    "injector>=0.22.0",
+    "langchain==0.3.27",
+    "langchain-community==0.3.27",
+    "openai>=2.7.1",
+    "psycopg2>=2.9.11",
+    "pytest>=8.4.2",
+    "python-dotenv>=1.2.1",
+    "ruff>=0.14.3",
+]

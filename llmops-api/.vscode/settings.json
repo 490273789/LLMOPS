@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "contextlib",
+        "contextmanager",
         "dotenv",
         "jsonify",
         "langchain"

@@ -1,4 +1,5 @@
 from langchain_core.prompts import PromptTemplate, PipelinePromptTemplate
+from langchain.chains.sequential import SimpleSequentialChain
 
 final_prompt = PromptTemplate.from_template("""
 {instruction}
@@ -88,3 +89,5 @@ for name, prompt in pipeline_steps:
 my_output = final_prompt.invoke(my_input).to_string()
 print()
 print("my_output:", my_output)
+
+SimpleSequentialChain

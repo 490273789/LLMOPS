@@ -7,11 +7,18 @@ from langchain_core.prompts import (
 )
 from langchain_core.messages import AIMessage
 
+# 定义模版
 prompt = PromptTemplate.from_template("请讲一个关于{subject}的冷笑话")
 print("PromptTemplate:", prompt)
+
+# 方式1： format - 将模版直接变为可用的消息
 print("PromptTemplate.format:", prompt.format(subject="程序员"))
 
-prompt_value = prompt.invoke({"subject": "程序员"})
+prompt1 = PromptTemplate.from_template("请讲一个关于{subject}的冷笑话")
+# 方式2: 先用invoke变为PromptValue
+# 通过to_string变为文本消息
+# 通过to_messages变为聊天列表消息
+prompt_value = prompt1.invoke({"subject": "程序员"})
 print("PromptValue:", prompt_value)
 print("PromptValue.to_string:", prompt_value.to_string())
 print("PromptValue.to_messages:", prompt_value.to_messages())

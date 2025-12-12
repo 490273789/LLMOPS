@@ -7,6 +7,7 @@ from internal.exception import CustomException
 from internal.router import Router
 from config import Config
 from pkg.response import json, HttpCode, Response
+from flask_cors import CORS
 
 
 # 应用相关的http配置
@@ -34,6 +35,18 @@ class Http(Flask):
         db.init_app(self)
         migrate.init_app(self, db, directory="internal/migration")
 
+        # 解决后端跨域问题
+        CORS(
+            self,
+            resources={
+                r"/*": {
+                    "origin": "*",
+                    "supports_credentials": True,
+                    "methods": ["GET", "POST"],
+                    "allow_headers": ["Content-Type"],
+                }
+            },
+        )
         # 注册应用路由
         router.register_router(self)
 

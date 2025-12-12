@@ -26,7 +26,9 @@ class Router:
         bp.add_url_rule("/app/<uuid:id>", view_func=self.app_handler.get_app)
         bp.add_url_rule("/ping", view_func=self.app_handler.ping)
         bp.add_url_rule(
-            "/app/completion", methods=["POST"], view_func=self.app_handler.completion
+            "/apps/<uuid:app_id>/debug",
+            methods=["POST"],
+            view_func=self.app_handler.debug,
         )
         bp.add_url_rule(
             "/app/<uuid:id>", methods=["PUT"], view_func=self.app_handler.update_app

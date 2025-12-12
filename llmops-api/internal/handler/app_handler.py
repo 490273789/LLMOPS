@@ -1,7 +1,9 @@
-from dataclasses import dataclass
 import uuid
+from dataclasses import dataclass
 from injector import inject
-from openai import OpenAI
+from langchain.chat_models import init_chat_model
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from internal.exception import FailException
 from internal.schema.app_schema import CompletionReq
 from internal.service import AppsService
@@ -31,27 +33,23 @@ class AppHandler:
         app = self.app_service.delete_app(id)
         return success_message(f"删除成功，删除id为{app.id}")
 
-    def completion(self):
+    def debug(self, app_id: uuid.UUID):
+        print(f"uuid: {app_id}")
         """聊天窗口"""
         # 1. 验证请求参数 post
         req = CompletionReq()
         if not req.validate():
             return validate_json(errors=req.errors)
-        # 2. 创建OpenAI客户端
-        client = OpenAI()
+        # 2. 创建客户端
+        client = init_chat_model(model="deepseek-chat", model_provider="deepseek")
         # 3. 得到请求响应，将响应返回给前端
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你是OpenAI聊天机器人，请根据用户的输入回复对应的信息。",
-                },
-                {"role": "user", "content": req.query.data},
-            ],
-        )
+        prompt = ChatPromptTemplate.from_template("{query}")
+        # 4. 创建输出解析器
+        parser = StrOutputParser()
+        # 5. 创建调用链
+        chain = prompt | client | parser
 
-        content = completion.choices[0].message.content
+        content = chain.invoke({"query": req.query.data})
 
         return success_json(data={"content": content})
 
